@@ -1,5 +1,5 @@
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 from parse_args import parse_args
 from utils_remove_target_source_history import *
 from ddpm_conditional_remove_target import Diffusion
