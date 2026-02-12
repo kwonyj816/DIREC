@@ -271,7 +271,7 @@ class Diffusion:
         self.rating_predictor = RatingPredictor(self.review_emb_dim, n_user, n_item).to(self.device)
 
         if getattr(args, 'pretraining', False):
-            ckpt_path = os.path.join("models", "pretraining" + "_" + args.dataset + str(args.cold_start_ratio), "ckpt.pt")
+            ckpt_path = os.path.join("models", "pretraining_" + args.dataset, "ckpt.pt")
             if not os.path.exists(ckpt_path):
                 logging.warning(f"Pretraining checkpoint not found at {ckpt_path}")
             else:
