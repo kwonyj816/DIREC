@@ -6,7 +6,7 @@ from scipy.sparse import csr_matrix, save_npz
 from collections import defaultdict
 from sentence_transformers import SentenceTransformer
 import torch
-from tqdm import tqdm
+from fastprogress import progress_bar
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -105,7 +105,9 @@ def build_item_text_dict(reviews):
 
 def mean_pool_embeddings(model, review_dict):
     res_embeddings = []
-    for item_id in tqdm(sorted(review_dict.keys()), desc="Item embeddings"):
+    pbar = progress_bar(sorted(review_dict.keys()))
+    for item_id in pbar:
+        pbar.comment = "Item embeddings"
         reviews = review_dict[item_id]
         if reviews:
             embeddings = model.encode(reviews, convert_to_numpy=True, show_progress_bar=False)
@@ -119,7 +121,9 @@ def mean_pool_embeddings(model, review_dict):
 def build_review_embedding_dict(model, reviews):
     review_dict = {(r['mappedUserID'], r['mappedItemID']): r['reviewText'] for r in reviews}
     embedding_dict = {}
-    for key, text in tqdm(review_dict.items(), desc="Embedding reviews"):
+    pbar = progress_bar(review_dict.items())
+    for key, text in pbar:
+        pbar.comment = "Embedding reviews"
         embedding_dict[key] = model.encode(text)
     return embedding_dict
 
