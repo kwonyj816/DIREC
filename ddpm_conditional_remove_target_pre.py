@@ -236,7 +236,7 @@ class Diffusion:
 
     def prepare(self, args):
         # Build dataloaders and initialize model/optimizer for pretraining.
-        self.pretrain_run_name = f"pretraining_{args.dataset}{args.cold_start_ratio}"
+        self.pretrain_run_name = f"pretraining_{args.dataset}"
         mk_folders(self.pretrain_run_name)
         self.train_dataloader, self.val_dataloader, n_user, n_item = get_data(args)
 
