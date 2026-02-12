@@ -10,7 +10,6 @@ from fastprogress import progress_bar
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-
 def load_and_filter_reviews(file_path):
     filtered_reviews, reviewer_ids = [], set()
     open_fn = gzip.open if file_path.endswith('.gz') else open
